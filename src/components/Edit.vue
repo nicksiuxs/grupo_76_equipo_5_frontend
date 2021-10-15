@@ -1,7 +1,6 @@
 <template>
     <div class="form" >
         <h1 class="form__title">Actualizar Cancha</h1>
-
         <label >
         <v-form ref="form" lazy-validation @submit.prevent="actualizarCancha(canchaActualizar)">
             <v-text-field
@@ -9,45 +8,32 @@
             label="Nombre del complejo deportivo"
             :counter="50"
             ></v-text-field>
-            <!-- asdfd -->
 
             <v-text-field
-            v-model="numCancha"
+            v-model="canchaActualizar.numCancha"
             label="Número de la cancha"
             type="number"
-            
             ></v-text-field>
 
             <v-select
-            v-model="disponibilidad"
+            v-model="canchaActualizar.disponibilidad"
             :items="items"
             label="Disponibilidad"
-            
             ></v-select>
 
             <v-text-field
-            v-model="phFds"
+            v-model="canchaActualizar.phFds"
             label="Precio fines de semana"
-            
             type="number"
             ></v-text-field>
 
             <v-text-field
-            v-model="phEs"
+            v-model="canchaActualizar.phEs"
             label="Precio entre semana"
-            
             type="number"
             ></v-text-field>
-
-            <v-text-field
-            v-model="url"
-            label="URL Imagen de la Cancha"
-            
-            ></v-text-field>
-
-
             <v-btn color="success" class="mr-4" @click="actualizar">
-            Guardar
+                Guardar
             </v-btn>
         </v-form>
         </label>
@@ -57,19 +43,10 @@
 <script>
 import store from "../store/index.js";
 export default {
+
     data: () => {
     return {
         canchaActualizar: {},
-
-        valid: true,
-        complejoDeportivo: "",
-        numCancha: "",
-        disponibilidad: "",
-        phFds: "",
-        phEs: "",
-        url: "",
-
-        
         disponibilidad: null,
         items: [
             "Disponible",
@@ -85,17 +62,8 @@ export default {
         },
         actualizar(){
             if (this.$refs.form.validate()) {
-                let objCancha = {
-                    complejoDeportivo: this.complejoDeportivo,
-                    numCancha: this.numCancha,
-                    disponibilidad: this.disponibilidad,
-                    phFds: this.phFds,
-                    phEs: this.phEs,
-                    url: this.url,
-                    id: this.$route.params.id
-                };
                 //Crear una persona; realiza solicitud post al backend
-                store.dispatch("actualizarCancha", objCancha).then(()=>{
+                store.dispatch("actualizarCancha", this.canchaActualizar).then(()=>{
                     //Limpia el formulario cuando se registra una persona
                     this.$refs.form.reset();
                 });
@@ -105,7 +73,11 @@ export default {
         },
     },
     mounted(){
-        console.log(this.$route.params.id)
+        fetch(`http://localhost:3000/canchas/${this.$route.params.id}`)
+            .then(res => res.json())
+            .then( data => {
+                this.canchaActualizar = data
+            })
     }
 }
 </script>
