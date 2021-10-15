@@ -41,8 +41,8 @@
             type="number"
             ></v-text-field>
 
-            <v-btn color="success" class="mr-4" @click="crear">
-            Guardar
+            <v-btn color="success" class="mr-4" @click="crear" :disabled="(this.complejoDeportivo==='' || this.numCancha==='' || this.disponibilidad==='' || this.phEs==='' || this.phFds==='')">
+                Guardar
             </v-btn>
         </v-form>
     </div>
