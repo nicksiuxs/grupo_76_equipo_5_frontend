@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-const baseUrl = "https://free-canchas-backend.herokuapp.com/canchas";
+const baseUrl = "https://hidden-anchorage-40172.herokuapp.com/canchas";
 // const devUrl = "http://localhost:3000/canchas";
 
 export default new Vuex.Store({

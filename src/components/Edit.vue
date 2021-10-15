@@ -73,7 +73,7 @@ export default {
         },
     },
     mounted(){
-        fetch(`http://localhost:3000/canchas/${this.$route.params.id}`)
+        fetch(`https://hidden-anchorage-40172.herokuapp.com/canchas/${this.$route.params.id}`)
             .then(res => res.json())
             .then( data => {
                 this.canchaActualizar = data
